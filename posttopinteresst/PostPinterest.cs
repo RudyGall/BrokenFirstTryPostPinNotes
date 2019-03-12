@@ -15,8 +15,8 @@ namespace posttopinteresst
         {
             var oauth_token = "Ane9FdYP7YJNPdqqG8Rr5iTgW5utFYqud3VlVcBFrrB08mC4jAm_wDAAAiGTRa6zDAbAr7UAAAAA";
             //var oauth_token_secret =  "put stuff here";
-            //var oauth_consumer_key =  "put stuff here";
-            //var oauth_consumer_secret = "put stuff here";
+            var oauth_consumer_key = "5021144650893801612";
+            var oauth_consumer_secret = "ba3a73bd5aab2032c03535e2d0d29d059bc41a96d4efdf8e109ea32629fb2a95";
 
             var oauth_version = "2.0";
             var oauth_signature_method = "HMAC-SHA1";
@@ -37,7 +37,7 @@ namespace posttopinteresst
                 "&oauth_timestamp={2}&oauth_token={3}&oauth_version={4}";
 
             var baseString = string.Format(baseFormat,
-                                        //oauth_consumer_key,
+                                        oauth_consumer_key,
                                         oauth_nonce,
                                         oauth_signature_method,
                                         oauth_timestamp,
@@ -49,31 +49,31 @@ namespace posttopinteresst
             baseString = string.Concat("POST&", Uri.EscapeDataString(resource_url),
                          "&", Uri.EscapeDataString(baseString));
 
-            var compositeKey = string.Concat(Uri.EscapeDataString(oauth_token),
+            var compositeKey = string.Concat(Uri.EscapeDataString(oauth_consumer_secret),
                         "&", Uri.EscapeDataString(oauth_token));
 
             string oauth_signature;
-            using (HMACSHA1 hasher = new HMACSHA1(Encoding.ASCII.GetBytes(oauth_token)))
+            using (HMACSHA1 hasher = new HMACSHA1(Encoding.ASCII.GetBytes(compositeKey)))
             {
                 oauth_signature = Convert.ToBase64String(
                     hasher.ComputeHash(Encoding.ASCII.GetBytes(baseString)));
             }
 
-            //var headerFormat = "OAuth oauth_nonce=\"{0}\", oauth_signature_method=\"{1}\", " +
-            //       "oauth_timestamp=\"{2}\", oauth_consumer_key=\"{3}\", " +
-            //       "oauth_token=\"{4}\", oauth_signature=\"{5}\", " +
-            //       "oauth_version=\"{6}\"";
-
             var headerFormat = "OAuth oauth_nonce=\"{0}\", oauth_signature_method=\"{1}\", " +
-                   "oauth_timestamp=\"{2}\", " +
-                   "oauth_token=\"{3}\", oauth_signature=\"{4}\", " +
-                   "oauth_version=\"{5}\"";
+                   "oauth_timestamp=\"{2}\", oauth_consumer_key=\"{3}\", " +
+                   "oauth_token=\"{4}\", oauth_signature=\"{5}\", " +
+                   "oauth_version=\"{6}\"";
+
+            //var headerFormat = "OAuth oauth_nonce=\"{0}\", oauth_signature_method=\"{1}\", " +
+            //       "oauth_timestamp=\"{2}\", " +
+            //       "oauth_token=\"{3}\", oauth_signature=\"{4}\", " +
+            //       "oauth_version=\"{5}\"";
 
             var authHeader = string.Format(headerFormat,
                                     Uri.EscapeDataString(oauth_nonce),
                                     Uri.EscapeDataString(oauth_signature_method),
                                     Uri.EscapeDataString(oauth_timestamp),
-                                    //Uri.EscapeDataString(oauth_consumer_key),
+                                    Uri.EscapeDataString(oauth_consumer_key),
                                     Uri.EscapeDataString(oauth_token),
                                     Uri.EscapeDataString(oauth_signature),
                                     Uri.EscapeDataString(oauth_version)
@@ -92,7 +92,7 @@ namespace posttopinteresst
                 byte[] content = Encoding.ASCII.GetBytes(postBody);
                 stream.Write(content, 0, content.Length);
             }
-            WebResponse response = request.GetResponse();
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
             Console.WriteLine(response.ToString());
             response.Close();

@@ -1,0 +1,7 @@
+C:\Users\rudye\source\repos\posttopinteresst\posttopinteresst\bin\Debug\posttopinteresst.exe.config
+C:\Users\rudye\source\repos\posttopinteresst\posttopinteresst\bin\Debug\posttopinteresst.exe
+C:\Users\rudye\source\repos\posttopinteresst\posttopinteresst\bin\Debug\posttopinteresst.pdb
+C:\Users\rudye\source\repos\posttopinteresst\posttopinteresst\obj\Debug\posttopinteresst.csprojAssemblyReference.cache
+C:\Users\rudye\source\repos\posttopinteresst\posttopinteresst\obj\Debug\posttopinteresst.csproj.CoreCompileInputs.cache
+C:\Users\rudye\source\repos\posttopinteresst\posttopinteresst\obj\Debug\posttopinteresst.exe
+C:\Users\rudye\source\repos\posttopinteresst\posttopinteresst\obj\Debug\posttopinteresst.pdb
